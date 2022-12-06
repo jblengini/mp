@@ -1,0 +1,35 @@
+[
+    {
+      "client_id": 1,
+      "factura": "013124564636A",
+      "fecha_emision": "01/11/2022",
+      "periodo": "11/22",
+      "tipo":"Liquidación",
+      "importe_total":6320,
+      "saldo":6320,
+      "importe":6320,
+      "createAt": "2022-11-10T22:00:03.000Z"
+    },
+    {
+        "client_id": 1,
+        "factura": "013124564636B",
+        "fecha_emision": "01/11/2022",
+        "periodo": "11/22",
+        "tipo":"Liquidación",
+        "importe_total":5320,
+        "saldo":5320,
+        "importe":5320,
+        "createAt": "2022-11-10T22:00:03.000Z"
+      },
+      {
+        "client_id": 1,
+        "factura": "013124564636C",
+        "fecha_emision": "01/11/2022",
+        "periodo": "11/22",
+        "tipo":"Liquidación",
+        "importe_total":16320,
+        "saldo":16320,
+        "importe":16320,
+        "createAt": "2022-11-10T22:00:03.000Z"
+      }
+   ]

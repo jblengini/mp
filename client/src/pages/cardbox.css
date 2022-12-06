@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  
+  
+  /* The grid container */
+  .grid-container {
+    display: grid;
+    grid-template-areas: 
+      'left left1 middle middle1 right' 
+      'footer1 footer2 footer3 footer4 footer5';
+    padding: 0.5em;
+    margin-left: 5em;
+    margin-right: 15em;
+    margin-top: 3em;
+    font-family:"Roboto", sans-serif;
+    color:rgb(92, 92, 92);
+    font-size: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    grid-auto-flow:dense;
+  } 
+  .grid-container > 
+  
+  .left,
+  .left1,
+  .middle,
+  .middle1,
+  .right {
+    padding: 10px;
+    background-color: white;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-color: gray;
+    
+  }
+  .badge {
+    background-color: rgb(160, 238, 124);
+    color: black;
+    padding: 4px 2px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 5px;
+    
+  }
+  
+  
+  .strong{
+    font-size: 16px;
+    font-weight: 500;
+    color: blackgit;
+  }
+  .btn {
+ 
+    margin-left: 2rem;
+    border-top: 1px solid #e1e5ee;
+    background-color: transparent;
+    border-color:#29e6a7 ;
+    font-family: inherit;
+    color: inherit;
+    width:min-content;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    cursor: pointer;
+     }
+
+    .btn:hover {
+      color: #29e6a7;
+      border-color:#29e6a7 ;
+    }
+ 
+  .label{
+    font-size: 14px;
+    font-weight: 500;
+    padding-top: 0.5em;
+    line-height: 19px;
+    }
+  
+  
+  .field
+  .price {
+    font-size: 12px;
+    font-weight: 300;
+    padding-bottom: 1em;
+    line-height: 14.4px;
+  
+  }
+  
+  .price::before  {
+        content: "$";
+        font-size: 0.8rem;
+        position: relative;
+        top: -0.1rem;
+        padding-right: 0.05rem;
+      }
+    
+  
+  /* Style the left column */
+  .left {
+    grid-area: left;
+    text-align: left;
+  }
+  .left1 {
+    grid-area: left1;
+    text-align: right;
+    align-self: end;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-color: gray;
+   
+  }
+  
+  .middle {
+    grid-area: middle;
+    text-align: left;
+    align-self: end;
+  }
+  .middle1 {
+   grid-area: middle1;
+   text-align: center;
+   align-self: end;
+  
+  }
+  
+  
+  /* Style the right column */
+  .right {
+    grid-area: right;
+    text-align: right;
+    align-self: end;
+     padding-right: 10px;
+  }
+  
+  /* Style the footer */
+  .footer {
+    grid-area: footer;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+    text-align: center;
+  }
+  .footer1 {
+    grid-area: footer1;
+    text-align: left;
+    align-self: end;
+    padding-left: 10px;
+  }
+  .footer2 {
+    grid-area: footer2;
+    text-align: center;
+    align-self: end;
+  }
+  .footer3 {
+    grid-area: footer3;
+    padding: 10px;
+    text-align: center;
+  }
+  .footer4 {
+    grid-area: footer4;
+   
+    padding: 10px;
+    align-self: center ;
+    text-align: center;
+  }
+  .footer5 {
+    grid-area: footer5;
+    align-self: end;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other 
+  @media (max-width: 600px) {
+    .grid-container  {
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left left left' 
+        'middle middle middle middle middle middle' 
+        'right right right right right right' 
+        'footer footer footer footer footer footer';
+    }
+  }*/

@@ -1,0 +1,66 @@
+<html>
+<head>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+  <div id="cardPaymentBrick_container"></div>
+  <script>
+    const mp = new MercadoPago('TEST-1b823431-863d-47f7-8b65-22d300acecd3');
+    const bricksBuilder = mp.bricks();
+    const renderCardPaymentBrick = async (bricksBuilder) => {
+      const settings = {
+        initialization: {
+          amount: 100, // monto total a pagar
+          payer: {
+            email: '',
+          },
+        },
+        customization: {
+          visual: {
+            style: {
+              theme: 'default' // | 'dark' | 'bootstrap' | 'flat'
+            }
+          }
+        },        
+        callbacks: {
+          onReady: () => {
+            /*
+              Callback llamado cuando Brick está listo
+              Aquí puedes ocultar loadings de su sitio, por ejemplo.
+            */
+          },
+          onSubmit: (cardFormData) => {
+            // callback llamado al usuario para hacer clic en
+            // ejemplo de envío de los datos recolectados por el Brick a su servidor
+            return new Promise((resolve, reject) => {
+              fetch("http://127.0.0.1:3000/process_payment", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cardFormData)
+              })
+                .then((response) => {
+                  // recibir el resultado del pago
+                  console.log(JSON.stringify(response));
+                  resolve();
+                })
+                .catch((error) => {
+                  // manejar la respuesta de error al intentar crear el pago
+                  reject();
+                })
+            });
+          },
+          onError: (error) => {
+            // callback llamado para todos los casos de error de Brick
+            console.error(error);
+          },
+        },
+      };
+      window.cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
+    };
+    renderCardPaymentBrick(bricksBuilder);
+  </script>
+</body>
+</html>
+
