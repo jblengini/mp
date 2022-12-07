@@ -54,13 +54,12 @@ app.use(cardsRoutes);
 app.use(express.static("./static"));
 app.get("/", function (req, res) {
     
-    var mascots = [
-        {name: 'Sammy', organization: 'DigitalOcean', birth_year: 2012},
-        {name: 'Tux', organization: 'Linux', birth_year: 1996},
-        {name: 'Moby Dick', organization: 'Docker', birth_year: 2013},
+    var facturas = [
+        {factura: '00202020208', Total: '1294558'},
+        {factura: '011202020208', Total: '3494558'},
     ];
     res.status(200).render("index", { mercadoPagoPublicKey,
-        myMascotsArray: mascots });
+        myFacturasArray: facturas });
   }); 
 
 

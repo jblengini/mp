@@ -15,7 +15,8 @@ function CardBox({ card }) {
     await amountToPay(card.importe);
     
       //navigate("/paymentform");
-    window.location.assign("http://127.0.0.1:5173/form.html ");
+    //window.location.assign("http://127.0.0.1:5173/form.html ");
+    window.location.assign("http://localhost:8080/")
   }
 
 
