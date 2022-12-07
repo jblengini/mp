@@ -8,13 +8,14 @@ import axios from "axios";
 
 function CardBox({ card }) {
   const { amountToPay,FormRequest,MyComponent } = useCards();
-
+  const mercadoPagoPublicKey = 'TEST-1b823431-863d-47f7-8b65-22d300acecd3'
   const navigate = useNavigate();
 
   const handleClick = async() => {
-    //await amountToPay(card.importe)
+    await amountToPay(card.importe);
+    
       //navigate("/paymentform");
-    window.location.assign("/http://localhost:8080/paymentform");
+    window.location.assign("http://127.0.0.1:5173/form.html ");
   }
 
 

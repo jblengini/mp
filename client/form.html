@@ -3,9 +3,13 @@
   <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body>
+  <input id="mercado-pago-public-key" value="{{mercadoPagoPublicKey}}" type="hidden" />
+  <div id="mercado-pago-public-key"> p </div>
   <div id="cardPaymentBrick_container"></div>
   <script>
     const mp = new MercadoPago('TEST-1b823431-863d-47f7-8b65-22d300acecd3');
+   
+ 
     const bricksBuilder = mp.bricks();
     const renderCardPaymentBrick = async (bricksBuilder) => {
       const settings = {

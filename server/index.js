@@ -52,16 +52,16 @@ app.use(cardsRoutes);
 
 //app.use(express.static(join(__dirname, '../client/dist')))
 app.use(express.static("./static"));
-// app.get("/", function (req, res) {
+app.get("/", function (req, res) {
     
-//     var mascots = [
-//         {name: 'Sammy', organization: 'DigitalOcean', birth_year: 2012},
-//         {name: 'Tux', organization: 'Linux', birth_year: 1996},
-//         {name: 'Moby Dick', organization: 'Docker', birth_year: 2013},
-//     ];
-//     res.status(200).render("index", { mercadoPagoPublicKey,
-//         myMascotsArray: mascots });
-//   }); 
+    var mascots = [
+        {name: 'Sammy', organization: 'DigitalOcean', birth_year: 2012},
+        {name: 'Tux', organization: 'Linux', birth_year: 1996},
+        {name: 'Moby Dick', organization: 'Docker', birth_year: 2013},
+    ];
+    res.status(200).render("index", { mercadoPagoPublicKey,
+        myMascotsArray: mascots });
+  }); 
 
 
   app.post("/process_payment", (req, res) => {
