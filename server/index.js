@@ -12,6 +12,7 @@ import consolidate from "consolidate";
 import swig from "swig";
 
 import cardsRoutes from "./routes/cards.routes.js";
+import { stringify } from "querystring";
 
 
 dotenv.config();
@@ -53,35 +54,57 @@ app.use(cardsRoutes);
 //app.use(express.static(join(__dirname, '../client/dist')))
 app.use(express.static("./static"));
 app.get("/", function (req, res) {
-    
+    var amount = 100;
     var facturas = [
         {factura: '00202020208', Total: '1294558'},
         {factura: '011202020208', Total: '3494558'},
     ];
-    res.status(200).render("index", { mercadoPagoPublicKey,
+    res.status(200).render("form", { mercadoPagoPublicKey, amount,
+     // res.status(200).render("index", { mercadoPagoPublicKey,amount,
         myFacturasArray: facturas });
   }); 
 
 
-  app.post("/process_payment", (req, res) => {
-    const { body } = req;
+  // app.post("/process_payment", (req, res) => {
+  //   const { body } = req;
+  //   console.log('pasa prosess' + body);
     
-    mercadopago.payment.save(body)
-      .then(function(response) {
-        const { response: data } = response;
-  
-        res.status(201).json({
-          detail: data.status_detail,
-          status: data.status,
-          id: data.id
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-        const { errorMessage, errorStatus }  = validateError(error);
-        res.status(errorStatus).json({ error_message: errorMessage });
-      });
+  //   mercadopago.payment.save(body)
+  //     .then(function(response) {
+  //       const { response: data } = response;
+  //         res.status(201).json({
+  //         detail: data.status_detail,
+  //         status: data.status,
+  //         id: data.id
+  //       });
+       
+  //     })
+      
+  //     .catch(function(error) {
+  //       console.log(error);
+  //       const { errorMessage, errorStatus }  = validateError(error);
+  //       res.status(errorStatus).json({ error_message: errorMessage });
+  //     });
+  // });
+
+ 
+  app.post("/process_payment", (req, res) => {
+    mercadopago.payment.save(req.body)
+    .then(function(response) {
+      const { status, status_detail, id } = response.body;
+      console.log('respuesta:'+  JSON.stringify(response.body));
+      res.status(response.status).json({ status, status_detail, id });
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+
   });
+  
+ 
+  
+
+
   
   function validateError(error) {
     let errorMessage = 'Unknown error cause';

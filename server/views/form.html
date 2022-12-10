@@ -1,0 +1,114 @@
+<html>
+<head>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+  <input id="mercado-pago-public-key" value="{{mercadoPagoPublicKey}}" type="hidden" />
+  <input id="amount" value="{{amount}}" type="hidden" />
+
+  <div>{{mercadoPagoPublicKey}} </div>
+  <div>{{amount}} </div>
+  <div id="cardPaymentBrick_container"></div>
+  <script>
+    const mercadoPagoPublicKey = document.getElementById("mercado-pago-public-key").value;
+    const payamout = document.getElementById("amount").value;
+    const mp = new MercadoPago(mercadoPagoPublicKey);
+   
+ 
+    const bricksBuilder = mp.bricks();
+    const renderCardPaymentBrick = async (bricksBuilder) => {
+      const settings = {
+        initialization: {
+          //amount: 100, // monto total a pagar
+          amount: payamout,
+          payer: {
+            email: '',
+          },
+        },
+        customization: {
+          visual: {
+            style: {
+              theme: 'default' // | 'dark' | 'bootstrap' | 'flat'
+            }
+          }
+        },        
+        callbacks: {
+          onReady: () => {
+            console.log('brick ready')
+            /*
+              Callback llamado cuando Brick está listo
+              Aquí puedes ocultar loadings de su sitio, por ejemplo.
+            */
+          },
+          onSubmit: (cardFormData) => {
+            proccessPayment(cardFormData)
+            // callback llamado al usuario para hacer clic en
+            // ejemplo de envío de los datos recolectados por el Brick a su servidor
+
+            // proccessPayment(cardFormData)
+            // return new Promise((resolve, reject) => {
+            //   fetch("http://localhost:8080/process_payment", {
+            //     method: "POST",
+            //     headers: {
+            //       "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(cardFormData)
+            //   })
+            //     .then((response) => {
+            //       // recibir el resultado del pago
+            //       console.log(JSON.stringify(response));
+            //       resolve();
+            //     })
+            //     .catch((error) => {
+            //       // manejar la respuesta de error al intentar crear el pago
+            //       reject();
+            //     })
+            // });
+          },
+          onError: (error) => {
+            // callback llamado para todos los casos de error de Brick
+            console.error(error);
+          },
+        },
+      };
+      window.cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
+    };
+    renderCardPaymentBrick(bricksBuilder);
+
+    const proccessPayment = (cardFormData) => {
+      console.log('formData:' +  JSON.stringify(cardFormData));
+    fetch("/process_payment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cardFormData),
+        
+    })
+    .then(response => {
+      console.log('response:' + response.json() )
+        return response.json();
+    })
+    .then(result => {
+        if(!result.hasOwnProperty("error_message")) {
+          console.log('ID:' + result.id)
+            document.getElementById("payment-id").innerText = result.id;
+            document.getElementById("payment-status").innerText = result.status;
+            document.getElementById("payment-detail").innerText = result.detail;
+            $('.container__payment').fadeOut(500);
+            setTimeout(() => { $('.container__result').show(500).fadeIn(); }, 500);
+        } else {
+            alert(JSON.stringify({
+                status: result.status,
+                message: result.error_message
+            }))
+        }
+    })
+    .catch(error => {
+        alert("Unexpected error\n"+JSON.stringify(error));
+    });
+}
+  </script>
+</body>
+</html>
+

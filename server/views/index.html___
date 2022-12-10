@@ -13,8 +13,11 @@
             <!-- Shopping Cart -->
             <section class="shopping-cart dark">
                 <div class="container container__cart">
+                    <div>{{mercadoPagoPublicKey}}</div>
+                    <div>{{myFacturasArray[1].factura}}</div>
                     <div class="block-heading">
                         <h2>Carro de compra</h2>
+                        <!--<h1>{{mercadoPagoPublicKey}}</h1>-->
                         <!--<p>This is an example of Mercado Pago Card Payment Brick Integration</p>-->
                     </div>
                     <div class="content">
